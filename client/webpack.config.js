@@ -18,7 +18,24 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
+      new HtmlWebpackPlugin({
+        template: 'index.html',
+        title: 'text-editor'
+      }),
+
+    new InjectManifest({
+      swSrc: './src-sw.js',
+      swDest: 'src-sw.js'
+    }),
+
+    new WebpackPwaManifest({
+      name: 'Text Editor',
+      short_name: 'txt-ed',
+      inject: true,
+      start_url: '/',
+      publicPath: '/',
       
+    })
     ],
 
     module: {
