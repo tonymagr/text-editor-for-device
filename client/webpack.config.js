@@ -20,27 +20,51 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: 'index.html',
-        title: 'text-editor'
+        title: 'Just Another Text Editor'
       }),
 
-    new InjectManifest({
-      swSrc: './src-sw.js',
-      swDest: 'src-sw.js'
-    }),
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js'
+      }),
 
-    new WebpackPwaManifest({
-      name: 'Text Editor',
-      short_name: 'txt-ed',
-      inject: true,
-      start_url: '/',
-      publicPath: '/',
-      
-    })
+      new WebpackPwaManifest({
+        name: 'Just Another Text Editor',
+        short_name: 'JATE',
+        inject: true,
+        start_url: './',
+        publicPath: './',
+        fingerprints: false,
+        description: 'Text editor that can be installed on your device',
+        background_color: '#38B1E4',
+        theme_color: '#38B1E4',
+        icons: [
+          {
+            src: path.resolve('src/images/te-logo.png'),
+              sizes: [96, 128, 192, 256, 384, 512],
+              destination: path.join('assets', 'icons'),
+          },
+        ], 
+      }),
     ],
-
     module: {
       rules: [
-        
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.m?js$/,
+          exclude: /node_modules/,
+          // Using babel-loader in order to use ES6.
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
+            },
+          },
+        },   
       ],
     },
   };
