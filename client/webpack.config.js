@@ -40,7 +40,7 @@ module.exports = () => {
         theme_color: '#38B1E4',
         icons: [
           {
-            src: path.resolve('src/images/te-logo.png'),
+            src: path.resolve('src/images/logo.png'),
               sizes: [96, 128, 192, 256, 384, 512],
               destination: path.join('assets', 'icons'),
           },
